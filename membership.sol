@@ -47,5 +47,11 @@ contract MembershipToken is ERC20, Ownable {
         return success;
     }
 
+    function _update(address from, address to, uint256 value) internal virtual override {
+        super._update(from, to, value);
+        // Emit a detailed transfer event for audit purposes
+        emit MembershipTransfer(from, to, value, block.timestamp);
+    }
+
     event MembershipTransfer(address indexed from, address indexed to, uint256 value, uint256 timestamp);
 }
